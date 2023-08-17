@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:datamex_master_app/app/data/constants/constants.dart';
 import 'package:datamex_master_app/app/domain/models/registration.dart';
 import 'package:datamex_master_app/app/domain/models/registration.form.dart';
-import 'package:datamex_master_app/app/presentation/utils/image_compressor.dart';
 import 'package:datamex_master_app/app/presentation/utils/net_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
@@ -65,18 +64,20 @@ class RegistrationsService {
 
     if (foto != null) {
       final fotoMime = mime(foto.path)!.split('/');
-      final compressedPhoto = await ImageUtils.compressAndRotateImage(foto, 80);
-      // Crear un archivo temporal con los bytes comprimidos
-      final compressedPhotoFile = File('${foto.path}_compressed.jpg');
-      await compressedPhotoFile.writeAsBytes(compressedPhoto);
+
       request.files.add(await http.MultipartFile.fromPath(
         'student_photo',
-        compressedPhotoFile.path, //foto.path,
+        foto.path, //foto.path,
         contentType: MediaType(fotoMime[0], fotoMime[1]),
         filename: 'FOTO',
       ));
     }
     if (voucher != null) {
+      /* final compressedVoucher =
+          await ImageUtils.compressAndRotateImage(voucher, 80);
+      // Crear un archivo temporal con los bytes comprimidos
+      final compressedVoucherFile = File('${voucher.path}_compressed.jpg');
+      await compressedVoucherFile.writeAsBytes(compressedVoucher); */
       final voucherMime = mime(voucher.path)!.split('/');
       request.files.add(await http.MultipartFile.fromPath(
         'student_voucher',
@@ -98,6 +99,8 @@ class RegistrationsService {
         contentType: MediaType('image', 'jpg'),
         filename: 'student_signature',
       ));
+    } else {
+      request.fields['student_signature_path'] = data.student_signature_path!;
     }
 
     try {

@@ -63,16 +63,12 @@ class PreregistrationsService {
 
       if (response.statusCode >= 200 && response.statusCode < 300) {
         print(response.body);
-        print('⬇️⬇️⬇️');
         final List<dynamic> preregistrationsJson = json.decode(response.body);
-        print('⬇️⬇️⬇️⬇️');
         print(preregistrationsJson);
-        print('⬇️⬇️⬇️⬇️⬇️');
         final List<PreregistrationModel> preregistrationsResponse =
             preregistrationsJson
                 .map((json) => PreregistrationModel.fromMap(json))
                 .toList();
-        print('⬇️⬇️⬇️⬇️⬇️⬇️');
 
         print(preregistrationsResponse);
         return preregistrationsResponse;
@@ -107,18 +103,6 @@ class PreregistrationsService {
       ..fields['registration_type'] = 'APP';
 
     if (firma != null) {
-      /*  final bytes =
-          firma.buffer.asUint8List(firma.offsetInBytes, firma.lengthInBytes);
-
-      // Reemplazar los píxeles transparentes por blanco
-      for (int i = 0; i < bytes.length; i += 4) {
-        if (bytes[i + 3] == 0) {
-          // Verificar si el canal alfa es 0 (transparencia)
-          bytes[i] = 255; // R
-          bytes[i + 1] = 255; // G
-          bytes[i + 2] = 255; // B
-        }
-      } */
       final dir = await getTemporaryDirectory();
       await dir.create(recursive: true);
       final imgFirma = File(path.join(dir.path, 'firma.jpg'));
