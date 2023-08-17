@@ -1,11 +1,13 @@
 import 'dart:io';
 
 import 'package:image/image.dart' as img;
+import 'package:image_picker/image_picker.dart';
 
 class ImageUtils {
   static Future<List<int>> compressAndRotateImage(
-      File imageFile, int quality) async {
-    final image = img.decodeImage(imageFile.readAsBytesSync())!;
+      XFile imageFile, int quality) async {
+    final fileImage = File((imageFile.path));
+    final image = img.decodeImage(fileImage.readAsBytesSync())!;
 
     // Corregir la rotación utilizando los datos EXIF
     final correctedImage = img.bakeOrientation(image);
