@@ -80,9 +80,9 @@ class _IndexCareersState extends State<IndexCareers> {
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
-                  DataColumn(
+                  /* DataColumn(
                     label: Text('ID'),
-                  ),
+                  ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -96,8 +96,8 @@ class _IndexCareersState extends State<IndexCareers> {
                 ],
                 rows: _careers.map((career) {
                   return DataRow(cells: [
-                    DataCell(SizedBox(
-                        child: Center(child: Text(career.id.toString())))),
+                    /* DataCell(SizedBox(
+                        child: Center(child: Text(career.id.toString())))), */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(career.name)),

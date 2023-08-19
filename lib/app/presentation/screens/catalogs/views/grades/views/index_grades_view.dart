@@ -80,9 +80,9 @@ class _IndexGradesState extends State<IndexGrades> {
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
-                  DataColumn(
+                  /* DataColumn(
                     label: Text('ID'),
-                  ),
+                  ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -96,8 +96,9 @@ class _IndexGradesState extends State<IndexGrades> {
                 ],
                 rows: _grades.map((grade) {
                   return DataRow(cells: [
-                    DataCell(SizedBox(
+                    /*  DataCell(SizedBox(
                         child: Center(child: Text(grade.id.toString())))),
+                     */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(grade.name)),

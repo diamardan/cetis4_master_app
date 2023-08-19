@@ -1,16 +1,16 @@
 class RegistrationFormData {
-  RegistrationFormData({
-    required this.names,
-    required this.surnames,
-    required this.curp,
-    required this.registration_number,
-    required this.email,
-    required this.cellphone,
-    required this.grade,
-    required this.group,
-    required this.turn,
-    required this.career,
-  });
+  RegistrationFormData(
+      {required this.names,
+      required this.surnames,
+      required this.curp,
+      required this.registration_number,
+      required this.email,
+      required this.cellphone,
+      required this.grade,
+      required this.group,
+      required this.turn,
+      required this.career,
+      required this.student_signature_path});
   Map<String, dynamic> toJson() {
     return {
       'names': names,
@@ -23,6 +23,7 @@ class RegistrationFormData {
       'career': career,
       'email': email,
       'cellphone': cellphone,
+      'student_signature_path': student_signature_path
     };
   }
 
@@ -36,4 +37,5 @@ class RegistrationFormData {
   String career;
   String email;
   String cellphone;
+  String? student_signature_path;
 }

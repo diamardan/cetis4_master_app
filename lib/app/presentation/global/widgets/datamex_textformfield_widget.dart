@@ -5,19 +5,20 @@ import 'package:flutter/services.dart';
 import 'package:remove_diacritic/remove_diacritic.dart';
 
 class DatamexTextFormField extends StatefulWidget {
-  const DatamexTextFormField(
-      {Key? key,
-      required this.labelText,
-      required this.boxHeight,
-      required this.controller,
-      this.onChanged,
-      this.validate = false, // Valor predeterminado: false,
-      this.minLength = 1,
-      this.maxLength = 50,
-      this.isEmail = false,
-      this.keyboardType = TextInputType.text, // Valor predeterminado
-      this.acceptDiacritics = false})
-      : super(key: key);
+  const DatamexTextFormField({
+    Key? key,
+    required this.labelText,
+    required this.boxHeight,
+    required this.controller,
+    this.onChanged,
+    this.validate = false, // Valor predeterminado: false,
+    this.minLength = 1,
+    this.maxLength = 50,
+    this.isEmail = false,
+    this.keyboardType = TextInputType.text, // Valor predeterminado
+    this.acceptDiacritics = false,
+    this.enabled = true,
+  }) : super(key: key);
   final String labelText;
   final double boxHeight;
   final TextEditingController controller; // Define el controlador
@@ -28,7 +29,7 @@ class DatamexTextFormField extends StatefulWidget {
   final TextInputType keyboardType; // Usar el enum como tipo de teclado
   final bool isEmail;
   final bool acceptDiacritics;
-
+  final bool enabled;
   @override
   State<DatamexTextFormField> createState() => _DatamexTextFormFieldState();
 }
@@ -44,11 +45,27 @@ class _DatamexTextFormFieldState extends State<DatamexTextFormField> {
     widget.isEmail
         ? _inputFormatters.add(LowerCaseTextFormatter())
         : _inputFormatters.add(UpperCaseTextFormatter());
+    if (widget.keyboardType == TextInputType.number) {
+      _inputFormatters.add(FilteringTextInputFormatter.digitsOnly);
+    }
     widget.controller.addListener(updateTextField);
   }
 
   String sanitizeText(String text) {
-    return removeDiacritics(text);
+    final diacriticsToKeep = {'ñ', 'Ñ'};
+
+    String output = '';
+
+    for (var i = 0; i < text.length; i++) {
+      final char = text[i];
+      if (diacriticsToKeep.contains(char)) {
+        output += char;
+      } else {
+        output += removeDiacritics(char);
+      }
+    }
+
+    return output;
   }
 
   void updateTextField() {
@@ -87,6 +104,7 @@ class _DatamexTextFormFieldState extends State<DatamexTextFormField> {
           controller: widget.controller,
           onChanged: widget.onChanged,
           inputFormatters: _inputFormatters,
+          enabled: widget.enabled,
           validator: (value) {
             print('😁😁😁');
             print(widget.validate);

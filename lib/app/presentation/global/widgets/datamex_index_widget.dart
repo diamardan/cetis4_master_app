@@ -8,7 +8,8 @@ class DatamexIndexMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: double.infinity,
+/*       height: double.infinity,
+ */
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

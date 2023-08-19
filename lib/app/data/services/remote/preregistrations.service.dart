@@ -15,6 +15,23 @@ class PreregistrationsService {
   //final _baseUrl = AppConstants.baseUrl;
 
 // Simula la función de búsqueda en el servidor
+  Future<List<PreregistrationModel>> searchByCurp(String query) async {
+    print(query);
+    var url = Uri.parse('${AppConstants.baseUrl}/preregistrations/verify-curp');
+
+    final response = await http.post(url, body: {'curp': query});
+    print(response.statusCode);
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final jsonResponse = json.decode(response.body);
+      print(jsonResponse['data']);
+      PreregistrationModel preregistration =
+          PreregistrationModel.fromMap(jsonResponse['data']);
+      return [preregistration];
+    } else {
+      throw Exception('Failed to load suggestions');
+    }
+  }
+
   Future<List<Map<String, dynamic>>> searchByApellidos(String query) async {
     print(query);
     var url = Uri.parse(

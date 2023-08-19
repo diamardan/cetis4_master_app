@@ -24,8 +24,9 @@ class RegistrationModel {
       required this.grade,
       required this.group,
       required this.turn,
-      required this.date,
-      required this.hour});
+      required this.fecha,
+      this.idbioInt,
+      required this.hora});
 
   factory RegistrationModel.fromJson(String str) =>
       RegistrationModel.fromMap(json.decode(str));
@@ -49,8 +50,9 @@ class RegistrationModel {
         grade: GradesModel.fromMap(json['grade']),
         group: GroupsModel.fromMap(json['group']),
         turn: TurnsModel.fromMap(json['turn']),
-        date: json['date'],
-        hour: json['hour'],
+        fecha: json['fecha'],
+        hora: json['hora'],
+        idbioInt: json['idbioInt'],
       );
   String id;
   String names;
@@ -69,9 +71,9 @@ class RegistrationModel {
   GradesModel grade;
   GroupsModel group;
   TurnsModel turn;
-  String? date;
-  String? hour;
-
+  String? fecha;
+  String? hora;
+  int? idbioInt;
   RegistrationModel copyWith(
           {String? id,
           String? names,
@@ -90,29 +92,31 @@ class RegistrationModel {
           GradesModel? grade,
           GroupsModel? group,
           TurnsModel? turn,
-          String? date,
-          String? hour}) =>
+          String? fecha,
+          String? hora,
+          int? idbioInt}) =>
       RegistrationModel(
-        id: id ?? this.id,
-        names: names ?? this.names,
-        surnames: surnames ?? this.surnames,
-        curp: curp ?? this.curp,
-        email: email ?? this.email,
-        cellphone: cellphone ?? this.cellphone,
-        idbio: idbio ?? this.idbio,
-        registrationType: registrationType ?? this.registrationType,
-        registrationNumber: registrationNumber ?? this.registrationNumber,
-        studentSignaturePath: studentSignaturePath ?? this.studentSignaturePath,
-        studentPhotoPath: studentPhotoPath ?? this.studentPhotoPath,
-        studentQrPath: studentQrPath ?? this.studentQrPath,
-        qr: qr ?? this.qr,
-        career: career ?? this.career,
-        grade: grade ?? this.grade,
-        group: group ?? this.group,
-        turn: turn ?? this.turn,
-        date: date ?? this.date,
-        hour: hour ?? this.hour,
-      );
+          id: id ?? this.id,
+          names: names ?? this.names,
+          surnames: surnames ?? this.surnames,
+          curp: curp ?? this.curp,
+          email: email ?? this.email,
+          cellphone: cellphone ?? this.cellphone,
+          idbio: idbio ?? this.idbio,
+          registrationType: registrationType ?? this.registrationType,
+          registrationNumber: registrationNumber ?? this.registrationNumber,
+          studentSignaturePath:
+              studentSignaturePath ?? this.studentSignaturePath,
+          studentPhotoPath: studentPhotoPath ?? this.studentPhotoPath,
+          studentQrPath: studentQrPath ?? this.studentQrPath,
+          qr: qr ?? this.qr,
+          career: career ?? this.career,
+          grade: grade ?? this.grade,
+          group: group ?? this.group,
+          turn: turn ?? this.turn,
+          fecha: fecha ?? this.fecha,
+          hora: hora ?? this.hora,
+          idbioInt: idbioInt ?? this.idbioInt);
 
   String toJson() => json.encode(toMap());
 
@@ -134,5 +138,6 @@ class RegistrationModel {
         'grade': grade.toMap(),
         'group': group.toMap(),
         'turn': turn.toMap(),
+        'idbioInt': idbioInt
       };
 }

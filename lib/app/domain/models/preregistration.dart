@@ -24,6 +24,11 @@ class PreregistrationModel {
     required this.grade,
     required this.group,
     required this.turn,
+    required this.fecha,
+    required this.hora,
+
+/*     required this.fecha,
+    required this.hora, */
   });
 
   factory PreregistrationModel.fromJson(String str) =>
@@ -44,6 +49,8 @@ class PreregistrationModel {
         studentPhotoPath: json['student_photo_path'],
         studentQrPath: json['student_qr_path'] ?? '',
         qr: json['qr'],
+        fecha: json['fecha'] ?? '',
+        hora: json['hora'] ?? '',
         career: CareerModel.fromMap(json['career']),
         grade: GradesModel.fromMap(json['grade']),
         group: GroupsModel.fromMap(json['group']),
@@ -62,6 +69,8 @@ class PreregistrationModel {
   dynamic studentPhotoPath;
   dynamic studentQrPath;
   String qr;
+  String? fecha;
+  String? hora;
   CareerModel career;
   GradesModel grade;
   GroupsModel group;
@@ -81,6 +90,8 @@ class PreregistrationModel {
     dynamic studentPhotoPath,
     dynamic studentQrPath,
     String? qr,
+    String? fecha,
+    String? hora,
     CareerModel? career,
     GradesModel? grade,
     GroupsModel? group,
@@ -104,6 +115,8 @@ class PreregistrationModel {
         grade: grade ?? this.grade,
         group: group ?? this.group,
         turn: turn ?? this.turn,
+        fecha: fecha == null ? 'a' : 'b',
+        hora: hora ?? 'a',
       );
 
   String toJson() => json.encode(toMap());
@@ -122,6 +135,8 @@ class PreregistrationModel {
         'student_photo_path': studentPhotoPath,
         'student_qr_path': studentQrPath,
         'qr': qr,
+        'fecha': fecha ?? 's',
+        'hora': hora ?? 'd',
         'career': career.toMap(),
         'grade': grade.toMap(),
         'group': group.toMap(),

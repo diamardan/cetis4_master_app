@@ -42,6 +42,15 @@ class _DatamexAutocompleteWidgetState extends State<DatamexAutocompleteWidget> {
       child: Column(
         children: [
           TypeAheadField(
+            noItemsFoundBuilder: (context) {
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'No se encontró el preregistro',
+                  style: TextStyle(color: Colors.red.shade600, fontSize: 16),
+                ),
+              );
+            },
             textFieldConfiguration: TextFieldConfiguration(
               controller: _searchController,
               decoration:

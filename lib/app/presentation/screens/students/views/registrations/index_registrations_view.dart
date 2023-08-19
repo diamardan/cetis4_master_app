@@ -4,8 +4,8 @@ import 'package:datamex_master_app/app/presentation/global/dialogs/datamex_notif
 import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
 import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
 import 'package:datamex_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_index_widget.dart';
 import 'package:datamex_master_app/app/presentation/routes/routes.dart';
+import 'package:datamex_master_app/app/presentation/screens/students/views/registrations/details_registration_view.dart';
 import 'package:flutter/material.dart';
 
 class IndexRegistrations extends StatefulWidget {
@@ -17,9 +17,10 @@ class IndexRegistrations extends StatefulWidget {
 
 class _IndexRegistrationsState extends State<IndexRegistrations> {
   List<RegistrationModel> _registrations = [];
+
   final RegistrationsService _registrationsService = RegistrationsService();
   bool isLoading = false;
-  bool showList = true;
+  bool showList = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -43,84 +44,80 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const DatamexAppBarWidget(title: 'Registros'),
-      body: Container(
-          color: Colors.transparent,
-          child: Stack(
-            children: [
-              CustomPaint(
-                painter: MiCustomPainter(),
-                size: MediaQuery.of(context).size,
-              ),
-              DatamexIndexMenu(children: [
-                Row(
-                  children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          Routes.goToRoute(context, Routes.addRegistrations);
-                        },
-                        child: const Text('Agregar')),
-                    SizedBox(
-                      width: 60,
-                      child: MaterialButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            showAsList();
-                          },
-                          child: const Icon(Icons.view_list)),
-                    ),
-                  ],
-                ),
+      body: SafeArea(
+        child: CustomPaint(
+          painter: MiCustomPainter(),
+          child: RefreshIndicator(
+            onRefresh: _loadRegistrations,
+            child: Column(
+              children: [
                 const SizedBox(
                   height: 10,
                 ),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: !isLoading
-                        ? SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: SingleChildScrollView(
-                              child: showList
-                                  ? registrationsWidgetList()
-                                  : registrationsWidgetTable(),
-                            ),
-                          )
-                        : Container(
-                            color: Colors.black.withOpacity(0.3),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircularProgressIndicator(
-                                      color: Colors.blue.shade500,
-                                      backgroundColor: Colors.blue.shade700),
-                                  const SizedBox(
-                                    height: 18,
-                                  ),
-                                  const Text(
-                                    'Cargando datos!',
-                                    style: TextStyle(
-                                        fontSize: 22, color: Colors.white),
-                                  )
-                                ],
-                              ),
-                            ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Routes.goToRoute(context, Routes.addRegistrations);
+                      },
+                      child: const Text('Agregar'),
+                    ),
+                    SizedBox(
+                      width: 60,
+                      child: MaterialButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          setState(() {
+                            showList = !showList; // Cambia entre las dos vistas
+                          });
+                        },
+                        child: const Icon(Icons.view_list),
+                      ),
+                    ),
+                  ],
+                ),
+                if (isLoading)
+                  Container(
+                    color: Colors.black.withOpacity(0.3),
+                    child: Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          CircularProgressIndicator(
+                            color: Colors.blue.shade500,
+                            backgroundColor: Colors.blue.shade700,
                           ),
+                          const SizedBox(
+                            height: 18,
+                          ),
+                          const Text(
+                            'Cargando datos!',
+                            style: TextStyle(fontSize: 22, color: Colors.white),
+                          ),
+                        ],
+                      ),
+                    ),
+                  )
+                else if (showList)
+                  registrationsWidgetList()
+                else
+                  Expanded(
+                    child: SingleChildScrollView(
+                      physics:
+                          const AlwaysScrollableScrollPhysics(), // Permitir el desplazamiento incluso cuando el contenido no lo requiere
+                      scrollDirection: Axis.vertical,
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: registrationsWidgetTable(),
+                      ),
+                    ),
                   ),
-                )
-              ]),
-            ],
-          )
-          /* Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: SingleChildScrollView(child: registrationsWidgetTable()),
-              ),
+              ],
             ),
-          ) */
           ),
+        ),
+      ),
     );
   }
 
@@ -131,45 +128,88 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
             'Aún no hay registros',
             style: TextStyle(fontSize: 23),
           ))
-        : ListView.builder(
-            itemCount: _registrations.length,
-            itemBuilder: (context, index) {
-              final registration = _registrations[index];
-              return Card(
-                margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-                child: ListTile(
-                  title: Text(registration.names),
-                  subtitle: Text(registration.surnames),
-                  trailing: MaterialButton(
-                    onPressed: () async {
-                      bool? deleteConfirmed =
-                          await const DatamexDeleteConfirmationDialog(
-                        title: 'Confirmación de Eliminación',
-                        message:
-                            '¿Estás seguro de que deseas eliminar este registro?',
-                      ).show(context);
-
-                      if (deleteConfirmed ?? false) {
-                        showLoading(true);
-                        Map<String, dynamic> result =
-                            await _registrationsService.delete(registration.id);
-                        String message = result['message'];
-                        print('🤮👍');
-                        print(message);
-                        showLoading(false);
-                        _showMessageDialog(message);
-                      }
+        : Expanded(
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: _registrations.length,
+              itemBuilder: (context, index) {
+                // Obtener el índice en la lista original de registros
+                /* int originalIndex = index % _registrations.length; */
+                final registration = _registrations[index];
+                return Card(
+                  child: GestureDetector(
+                    onTap: () {
+                      seeDetails(registration);
                     },
-                    color: Colors.red,
-                    child: const Icon(
-                      Icons.delete,
-                      color: Colors.white,
+                    child: ListTile(
+                      title: Text(
+                          '${registration.surnames} ${registration.names}'),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                              '${registration.fecha.toString()} ${registration.hora.toString()}'),
+                          Text(registration.career.name),
+                          Row(
+                            children: [
+                              Text('${registration.grade.name}  -  '),
+                              Text('${registration.group.name}  -  '),
+                              Text(registration.turn.name),
+                            ],
+                          ),
+                          Text('IDBIO  :  ${registration.idbio}'),
+                        ],
+                      ),
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SizedBox(
+                            width: 60,
+                            child: MaterialButton(
+                              onPressed: () async {
+                                bool? deleteConfirmed =
+                                    await const DatamexDeleteConfirmationDialog(
+                                  title: 'Confirmación de Eliminación',
+                                  message:
+                                      '¿Estás seguro de que deseas eliminar este registro?',
+                                ).show(context);
+
+                                if (deleteConfirmed ?? false) {
+                                  showLoading(true);
+                                  Map<String, dynamic> result =
+                                      await _registrationsService
+                                          .delete(registration.id);
+                                  String message = result['message'];
+                                  print('🤮👍');
+                                  print(message);
+                                  showLoading(true);
+                                  _showMessageDialog(message);
+                                }
+                              },
+                              color: Colors.red,
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           );
+  }
+
+  void seeDetails(RegistrationModel registro) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => DetailsRegistrationView(registration: registro),
+      ),
+    );
   }
 
   Widget registrationsWidgetTable() {
@@ -180,21 +220,33 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
             'Aún no hay registros',
             style: TextStyle(fontSize: 23),
           ))
-        : SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Añadir scroll horizontal
-            child: SizedBox(
+        : Card(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
               child: DataTable(
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
                   DataColumn(
-                    label: Text('Nombres'),
+                    label: Text('FECHA'),
+                  ),
+                  DataColumn(
+                    label: Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text('HORA'),
+                    ),
+                  ),
+                  DataColumn(
+                    label: Text('IDBIO'),
                   ),
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
                     child: Text('Apellidos'),
                   )),
+                  DataColumn(
+                    label: Text('Nombres'),
+                  ),
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -229,12 +281,23 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
                 rows: _registrations.map((registration) {
                   return DataRow(cells: [
                     DataCell(SizedBox(
-                        child: Center(child: Text(registration.names)))),
+                        child: Center(
+                            child: Text(registration.fecha.toString())))),
+                    DataCell(SizedBox(
+                        width: 70,
+                        child:
+                            Center(child: Text(registration.hora.toString())))),
+                    DataCell(SizedBox(
+                        child: Center(
+                            child: Text(registration.idbioInt.toString())))),
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(
-                          width: 200, child: Text(registration.surnames)),
+                          width: 150, child: Text(registration.surnames)),
                     )),
+                    DataCell(SizedBox(
+                        width: 150,
+                        child: Center(child: Text(registration.names)))),
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child:
@@ -248,17 +311,17 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(
-                          width: 200, child: Text(registration.grade.name)),
+                          width: 50, child: Text(registration.grade.name)),
                     )),
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(
-                          width: 200, child: Text(registration.group.name)),
+                          width: 50, child: Text(registration.group.name)),
                     )),
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(
-                          width: 200, child: Text(registration.turn.name)),
+                          width: 100, child: Text(registration.turn.name)),
                     )),
                     DataCell(Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -297,7 +360,8 @@ class _IndexRegistrationsState extends State<IndexRegistrations> {
                   ]);
                 }).toList(),
               ),
-            ));
+            ),
+          );
   }
 
   void _showMessageDialog(String message) {

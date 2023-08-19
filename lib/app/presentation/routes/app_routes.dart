@@ -15,6 +15,7 @@ import 'package:datamex_master_app/app/presentation/screens/splash/views/splash_
 import 'package:datamex_master_app/app/presentation/screens/students/views/index_students_view.dart';
 import 'package:datamex_master_app/app/presentation/screens/students/views/preregistrations/add_preregistration_view.dart';
 import 'package:datamex_master_app/app/presentation/screens/students/views/preregistrations/index_preregistrations_view.dart';
+import 'package:datamex_master_app/app/presentation/screens/students/views/preregistrations/public_add_preregistration_view.dart';
 import 'package:datamex_master_app/app/presentation/screens/students/views/registrations/index_registrations_view.dart';
 import 'package:flutter/material.dart';
 
@@ -44,5 +45,7 @@ Map<String, Widget Function(BuildContext)> get appRoutes {
     Routes.addRegistrations: (context) => const AddRegistrationView(),
     Routes.preregistrations: (context) => const IndexPreregistrations(),
     Routes.addPreregistrations: (context) => const AddPreregistrationView(),
+    Routes.addPreregistrationsPublic: (context) =>
+        const PublicAddPreregistration(),
   };
 }

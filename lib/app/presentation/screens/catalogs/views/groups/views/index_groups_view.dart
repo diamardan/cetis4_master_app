@@ -80,9 +80,9 @@ class _IndexGroupsState extends State<IndexGroups> {
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
-                  DataColumn(
+                  /* DataColumn(
                     label: Text('ID'),
-                  ),
+                  ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -96,8 +96,8 @@ class _IndexGroupsState extends State<IndexGroups> {
                 ],
                 rows: _groups.map((group) {
                   return DataRow(cells: [
-                    DataCell(SizedBox(
-                        child: Center(child: Text(group.id.toString())))),
+                    /* DataCell(SizedBox(
+                        child: Center(child: Text(group.id.toString())))), */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(group.name)),

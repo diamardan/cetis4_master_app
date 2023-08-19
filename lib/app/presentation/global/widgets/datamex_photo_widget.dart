@@ -94,7 +94,7 @@ class _DatamexCameraWidgetState extends State<DatamexCameraWidget> {
   Future<void> _pickImage() async {
     final picker = ImagePicker();
     final image =
-        await picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+        await picker.pickImage(source: ImageSource.gallery, imageQuality: 25);
 
     if (image != null) {
       setState(() {

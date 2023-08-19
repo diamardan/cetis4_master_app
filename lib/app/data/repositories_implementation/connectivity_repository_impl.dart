@@ -3,9 +3,9 @@ import 'package:datamex_master_app/app/data/services/remote/internet_checker.dar
 import 'package:datamex_master_app/app/domain/repositories/connectivity_repository.dart';
 
 class ConnectivityRepositoryImpl implements ConnectivityRepository {
+  ConnectivityRepositoryImpl(this._connectivity, this._internetChecker);
   final Connectivity _connectivity;
   final InternetChecker _internetChecker;
-  ConnectivityRepositoryImpl(this._connectivity, this._internetChecker);
 
   @override
   Future<bool> get hasInternet async {

@@ -51,7 +51,7 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
   final TurnsService _turnsService = TurnsService();
   List<TurnsModel> _turns = [];
   String _selectedTurn = '';
-
+  String _loadingStatusMessage = 'Enviando Datos';
   bool _formLoading = false;
   File?
       _selectedPhotoImageFile; // Variable para almacenar el archivo seleccionado
@@ -60,7 +60,8 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
   bool searching = true;
   bool hasSign = false;
   String _signatureId = '';
-  final SignatureController _signatureController = SignatureController();
+  final SignatureController _signatureController =
+      SignatureController(exportBackgroundColor: Colors.white);
   @override
   void initState() {
     // TODO: implement initState
@@ -81,6 +82,7 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
     _curpController.text = predata['curp'];
     _emailController.text = predata['email'];
     _cellphoneController.text = predata['cellphone'];
+    _registrationNumberController.text = predata['registration_number'];
     if (predata['student_signature_path'] is String &&
         predata['student_signature_path'].isNotEmpty) {
       print('ya estoy aqui jajajajajaja 😎😎😎😎😎😎');
@@ -157,9 +159,9 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
                   const SizedBox(
                     height: 18,
                   ),
-                  const Text(
-                    'Enviando datos!',
-                    style: TextStyle(fontSize: 22, color: Colors.white),
+                  Text(
+                    _loadingStatusMessage,
+                    style: const TextStyle(fontSize: 22, color: Colors.white),
                   )
                 ],
               ),
@@ -326,6 +328,10 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
             DatamexFormButton(
               color: Colors.green.shade800,
               onPress: () {
+                setLoading(true);
+                setState(() {
+                  _loadingStatusMessage = 'Espere un momento';
+                });
                 handleForm(context, _formKey);
               },
               label: 'Guardar',
@@ -343,24 +349,39 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
     );
   }
 
+  void changeStatusMessage(String message) {
+    setState(() {
+      _loadingStatusMessage = message;
+    });
+  }
+
+  void resetLoaderStatus() {
+    setState(() {
+      _formLoading = false;
+      _loadingStatusMessage = 'Enviando datos!';
+    });
+  }
+
   void handleForm(
       BuildContext currentContext, GlobalKey<FormState> formKey) async {
     if (_signatureController.isEmpty && hasSign == false) {
+      resetLoaderStatus();
       return notifyDialog(
           currentContext, 'Debe ingresar una firma para continuar');
     }
     if (_selectedPhotoImageFile == null) {
+      resetLoaderStatus();
       return notifyDialog(currentContext,
           'Debe tomar una fotografía del alumno para continuar');
     }
     if (_selectedVoucherImageFile == null) {
+      resetLoaderStatus();
       return notifyDialog(currentContext,
           'Debe tomar una fotografía del voucher para continuar');
     }
-
+    changeStatusMessage('obteniendo firma');
     var firma = await _signatureController.toPngBytes();
-
-    setLoading(true);
+    changeStatusMessage('validando formulario');
 
     if (formKey.currentState!.validate()) {
       final names = _namesController.text;
@@ -371,17 +392,17 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
       final cellphone = _cellphoneController.text;
 
       RegistrationFormData formData = RegistrationFormData(
-        names: names,
-        surnames: surnames,
-        curp: curp,
-        registration_number: registrationNumber,
-        email: email,
-        cellphone: cellphone,
-        grade: _selectedGrade,
-        group: _selectedGroup,
-        turn: _selectedTurn,
-        career: _selectedCareer,
-      );
+          names: names,
+          surnames: surnames,
+          curp: curp,
+          registration_number: registrationNumber,
+          email: email,
+          cellphone: cellphone,
+          grade: _selectedGrade,
+          group: _selectedGroup,
+          turn: _selectedTurn,
+          career: _selectedCareer,
+          student_signature_path: _signatureId);
 
       Map<String, dynamic> response =
           await _registrationsService.addRegistration(
@@ -392,17 +413,44 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
       );
 
       setLoading(false);
-
-      if (response['success'] == true) {
-        print('Inserción exitosa');
-        Navigator.pushReplacementNamed(context, Routes.registrations);
+      print('$response solo response');
+      print('${response["error"]} errir');
+      print('${response["responseJson"]} json');
+      print('${response.containsKey("message")} contiene');
+      print('${response["code"]}---code');
+      print('${response["statusCode"]} estats');
+      if (response.containsKey('error')) {
+        notifyDialog(context, response['error']);
+      } else if (response.containsKey('responseJson')) {
+        final responseJson = response['responseJson'];
+        if (responseJson.containsKey('code') &&
+            responseJson['code'] >= 200 &&
+            responseJson['code'] < 300) {
+          if (responseJson.containsKey('message') &&
+              responseJson['message'] == 'success') {
+            print('nos estamos moviendo');
+            Navigator.pushReplacementNamed(context, Routes.registrations);
+          } else if (responseJson.containsKey('message') &&
+              responseJson['message'].contains('Key (curp)')) {
+            final errorMessage = responseJson['message'].split('=')[1];
+            notifyDialog(context, errorMessage);
+          } else {
+            notifyDialog(context, 'Error desconocido');
+          }
+        } else {
+          if (responseJson.containsKey('error')) {
+            notifyDialog(context, responseJson['error']);
+          } else {
+            print('Manejar otro caso si es necesario');
+          }
+        }
       } else {
-        String errorMessage = response['error'] ?? 'Error desconocido';
-        notifyDialog(context, errorMessage);
+        notifyDialog(context, 'Error desconocido');
       }
+      // Cerrar el modal después de guardar
+      //Navigator.pushReplacementNamed(currentContext, Routes.personal);
     }
-
-    setLoading(false);
+    resetLoaderStatus();
   }
 
   void notifyDialog(BuildContext context, String message) {
@@ -421,10 +469,14 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
     );
   }
 
-  void handlePhotoSelected(File? imageFile) {
+  void handlePhotoSelected(File? imageFile) async {
+    setLoading(true);
+    changeStatusMessage('Comprimiendo Foto');
+
     setState(() {
       _selectedPhotoImageFile = imageFile;
     });
+    resetLoaderStatus();
   }
 
   void handleVoucherSelected(File? imageFile) {
@@ -445,7 +497,10 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
             ),
           ),
         ),
-        DatamexCameraWidget(onImageSelected: handlePhotoSelected),
+        DatamexCameraWidget(
+            onImageSelected: handlePhotoSelected,
+            loadStatusCallback: setLoading,
+            changeStatusMessageCallback: changeStatusMessage),
       ],
     );
   }
@@ -462,7 +517,11 @@ class _AddRegistrationViewState extends State<AddRegistrationView> {
             ),
           ),
         ),
-        DatamexCameraWidget(onImageSelected: handleVoucherSelected),
+        DatamexCameraWidget(
+          onImageSelected: handleVoucherSelected,
+          loadStatusCallback: setLoading,
+          changeStatusMessageCallback: changeStatusMessage,
+        ),
       ],
     );
   }

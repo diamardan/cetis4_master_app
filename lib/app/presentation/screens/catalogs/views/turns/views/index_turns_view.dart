@@ -77,12 +77,15 @@ class _IndexTurnsState extends State<IndexTurns> {
             scrollDirection: Axis.horizontal, // Añadir scroll horizontal
             child: SizedBox(
               child: DataTable(
+                dataRowMaxHeight: 50,
+                headingRowColor: MaterialStateColor.resolveWith(
+                    (states) => Colors.grey.shade100),
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
-                  DataColumn(
+                  /* DataColumn(
                     label: Text('ID'),
-                  ),
+                  ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -96,8 +99,8 @@ class _IndexTurnsState extends State<IndexTurns> {
                 ],
                 rows: _turns.map((turn) {
                   return DataRow(cells: [
-                    DataCell(SizedBox(
-                        child: Center(child: Text(turn.id.toString())))),
+                    /* DataCell(SizedBox(
+                        child: Center(child: Text(turn.id.toString())))), */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(turn.name)),
