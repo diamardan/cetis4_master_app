@@ -1,9 +1,9 @@
-import 'package:datamex_master_app/app/data/services/remote/turns.service.dart';
-import 'package:datamex_master_app/app/domain/models/turns.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_index_widget.dart';
+import 'package:cetis4_master_app/app/data/services/remote/turns.service.dart';
+import 'package:cetis4_master_app/app/domain/models/turns.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/my_custom_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_index_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../global/dialogs/datamex_notification_dialog_widget.dart';
@@ -73,9 +73,9 @@ class _IndexTurnsState extends State<IndexTurns> {
             'Aún no hay turnos',
             style: TextStyle(fontSize: 23),
           ))
-        : SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Añadir scroll horizontal
-            child: SizedBox(
+        : SizedBox(
+            height: MediaQuery.of(context).size.height * .8,
+            child: SingleChildScrollView(
               child: DataTable(
                 dataRowMaxHeight: 50,
                 headingRowColor: MaterialStateColor.resolveWith(
@@ -84,8 +84,8 @@ class _IndexTurnsState extends State<IndexTurns> {
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
                   /* DataColumn(
-                    label: Text('ID'),
-                  ), */
+                  label: Text('ID'),
+                ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -100,7 +100,7 @@ class _IndexTurnsState extends State<IndexTurns> {
                 rows: _turns.map((turn) {
                   return DataRow(cells: [
                     /* DataCell(SizedBox(
-                        child: Center(child: Text(turn.id.toString())))), */
+                      child: Center(child: Text(turn.id.toString())))), */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(turn.name)),
@@ -139,7 +139,8 @@ class _IndexTurnsState extends State<IndexTurns> {
                   ]);
                 }).toList(),
               ),
-            ));
+            ),
+          );
   }
 
   void _showMessageDialog(String message) {

@@ -1,9 +1,9 @@
-import 'package:datamex_master_app/app/data/services/remote/groups.service.dart';
-import 'package:datamex_master_app/app/domain/models/groups.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_index_widget.dart';
+import 'package:cetis4_master_app/app/data/services/remote/groups.service.dart';
+import 'package:cetis4_master_app/app/domain/models/groups.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/my_custom_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_index_widget.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../global/dialogs/datamex_notification_dialog_widget.dart';
@@ -41,15 +41,17 @@ class _IndexGroupsState extends State<IndexGroups> {
           const SizedBox(
             height: 10,
           ),
-          Card(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: SingleChildScrollView(child: gruposWidgetTable()),
+          Column(children: [
+            Card(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(child: gruposWidgetTable()),
+                ),
               ),
             ),
-          )
+          ])
         ]),
         /* Card(
             child: Padding(
@@ -73,16 +75,16 @@ class _IndexGroupsState extends State<IndexGroups> {
             'Aún no hay grupos',
             style: TextStyle(fontSize: 23),
           ))
-        : SingleChildScrollView(
-            scrollDirection: Axis.horizontal, // Añadir scroll horizontal
-            child: SizedBox(
+        : SizedBox(
+            height: MediaQuery.of(context).size.height * .8,
+            child: SingleChildScrollView(
               child: DataTable(
                 columnSpacing: 1,
                 border: TableBorder.all(color: Colors.black87),
                 columns: const [
                   /* DataColumn(
-                    label: Text('ID'),
-                  ), */
+                  label: Text('ID'),
+                ), */
                   DataColumn(
                       label: Padding(
                     padding: EdgeInsets.only(left: 12),
@@ -97,7 +99,7 @@ class _IndexGroupsState extends State<IndexGroups> {
                 rows: _groups.map((group) {
                   return DataRow(cells: [
                     /* DataCell(SizedBox(
-                        child: Center(child: Text(group.id.toString())))), */
+                      child: Center(child: Text(group.id.toString())))), */
                     DataCell(Padding(
                       padding: const EdgeInsets.only(left: 12),
                       child: SizedBox(width: 200, child: Text(group.name)),
@@ -136,7 +138,8 @@ class _IndexGroupsState extends State<IndexGroups> {
                   ]);
                 }).toList(),
               ),
-            ));
+            ),
+          );
   }
 
   void _showMessageDialog(String message) {
