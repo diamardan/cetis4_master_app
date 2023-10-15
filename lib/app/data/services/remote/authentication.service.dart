@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:datamex_master_app/app/data/http/http.dart';
-import 'package:datamex_master_app/app/domain/either.dart';
-import 'package:datamex_master_app/app/domain/enums.dart';
+import 'package:cetis4_master_app/app/data/http/http.dart';
+import 'package:cetis4_master_app/app/domain/either.dart';
+import 'package:cetis4_master_app/app/domain/enums.dart';
 
 class AuthenticationService {
   AuthenticationService(this._http);

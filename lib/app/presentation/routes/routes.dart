@@ -22,6 +22,8 @@ class Routes {
   static const registrations = '/registrations';
   static const addRegistrations = '/add-registration';
   static const addPreregistrationsPublic = '/add-preregistration-public';
+  static const digitalCredential = '/digital-credential';
+  static const notifications = '/notifications';
 
   static void goToRoute(BuildContext context, String routeName) {
     Navigator.of(context).pushReplacementNamed(routeName);

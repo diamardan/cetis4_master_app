@@ -1,4 +1,4 @@
-import 'package:datamex_master_app/app/presentation/global/painters/background_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/background_painter.dart';
 import 'package:flutter/material.dart';
 
 class OfflineView extends StatelessWidget {

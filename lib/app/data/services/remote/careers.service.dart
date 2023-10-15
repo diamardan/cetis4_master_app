@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:datamex_master_app/app/data/constants/constants.dart';
-import 'package:datamex_master_app/app/domain/models/careers.dart';
+import 'package:cetis4_master_app/app/data/constants/constants.dart';
+import 'package:cetis4_master_app/app/domain/models/careers.dart';
 import 'package:http/http.dart' as http;
 
 class CareersService {

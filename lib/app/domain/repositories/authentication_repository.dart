@@ -1,6 +1,6 @@
-import 'package:datamex_master_app/app/domain/either.dart';
-import 'package:datamex_master_app/app/domain/enums.dart';
-import 'package:datamex_master_app/app/domain/models/user.dart';
+import 'package:cetis4_master_app/app/domain/either.dart';
+import 'package:cetis4_master_app/app/domain/enums.dart';
+import 'package:cetis4_master_app/app/domain/models/user.dart';
 
 abstract class AuthenticationRepository {
   Future<bool> get isSignedIn;

@@ -1,6 +1,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:datamex_master_app/app/data/services/remote/internet_checker.dart';
-import 'package:datamex_master_app/app/domain/repositories/connectivity_repository.dart';
+import 'package:cetis4_master_app/app/data/services/remote/internet_checker.dart';
+import 'package:cetis4_master_app/app/domain/repositories/connectivity_repository.dart';
 
 class ConnectivityRepositoryImpl implements ConnectivityRepository {
   ConnectivityRepositoryImpl(this._connectivity, this._internetChecker);

@@ -1,7 +1,7 @@
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_card_menu_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/menu_button_widget.dart';
-import 'package:datamex_master_app/app/presentation/routes/routes.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_card_menu_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/menu_button_widget.dart';
+import 'package:cetis4_master_app/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class IndexCatalogsView extends StatelessWidget {

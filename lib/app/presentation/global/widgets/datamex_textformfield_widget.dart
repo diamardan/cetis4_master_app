@@ -1,5 +1,5 @@
-import 'package:datamex_master_app/app/presentation/utils/email_validator.dart';
-import 'package:datamex_master_app/app/presentation/utils/uppercase_text_formater.dart';
+import 'package:cetis4_master_app/app/presentation/utils/email_validator.dart';
+import 'package:cetis4_master_app/app/presentation/utils/uppercase_text_formater.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:remove_diacritic/remove_diacritic.dart';

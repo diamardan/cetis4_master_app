@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:datamex_master_app/app/data/constants/constants.dart';
-import 'package:datamex_master_app/app/domain/models/preregistration.dart';
-import 'package:datamex_master_app/app/domain/models/preregistration.form.dart';
-import 'package:datamex_master_app/app/presentation/utils/net_util.dart';
+import 'package:cetis4_master_app/app/data/constants/constants.dart';
+import 'package:cetis4_master_app/app/domain/models/preregistration.dart';
+import 'package:cetis4_master_app/app/domain/models/preregistration.form.dart';
+import 'package:cetis4_master_app/app/presentation/utils/net_util.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:path/path.dart' as path;

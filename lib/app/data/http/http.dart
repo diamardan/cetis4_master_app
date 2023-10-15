@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:datamex_master_app/app/domain/either.dart';
+import 'package:cetis4_master_app/app/domain/either.dart';
 import 'package:http/http.dart';
 
 class Http {

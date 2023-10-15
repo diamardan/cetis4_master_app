@@ -1,9 +1,9 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:datamex_master_app/app/data/constants/constants.dart';
-import 'package:datamex_master_app/app/data/http/http.dart';
-import 'package:datamex_master_app/app/data/services/remote/authentication.service.dart';
-import 'package:datamex_master_app/app/data/services/remote/internet_checker.dart';
-import 'package:datamex_master_app/app/my_app.dart';
+import 'package:cetis4_master_app/app/data/constants/constants.dart';
+import 'package:cetis4_master_app/app/data/http/http.dart';
+import 'package:cetis4_master_app/app/data/services/remote/authentication.service.dart';
+import 'package:cetis4_master_app/app/data/services/remote/internet_checker.dart';
+import 'package:cetis4_master_app/app/my_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;

@@ -1,5 +1,5 @@
-import 'package:datamex_master_app/app/presentation/routes/app_routes.dart';
-import 'package:datamex_master_app/app/presentation/routes/routes.dart';
+import 'package:cetis4_master_app/app/presentation/routes/app_routes.dart';
+import 'package:cetis4_master_app/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {

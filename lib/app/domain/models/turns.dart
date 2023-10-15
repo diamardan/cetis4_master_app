@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:datamex_master_app/app/presentation/utils/common_response.dart';
+import 'package:cetis4_master_app/app/presentation/utils/common_response.dart';
 
 class TurnsModel extends CommonResponse {
   TurnsModel({

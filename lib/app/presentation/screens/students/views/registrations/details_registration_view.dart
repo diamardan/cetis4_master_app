@@ -1,6 +1,6 @@
-import 'package:datamex_master_app/app/domain/models/registration.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_textformfield_widget.dart';
+import 'package:cetis4_master_app/app/domain/models/registration.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_textformfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class DetailsRegistrationView extends StatefulWidget {

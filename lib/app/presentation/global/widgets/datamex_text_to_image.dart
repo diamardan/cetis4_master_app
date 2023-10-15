@@ -2,7 +2,7 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:datamex_master_app/app/presentation/global/painters/datamex_text_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/datamex_text_painter.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 

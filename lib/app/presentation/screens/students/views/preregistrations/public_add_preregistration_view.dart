@@ -1,9 +1,9 @@
-import 'package:datamex_master_app/app/data/services/remote/preregistrations.service.dart';
-import 'package:datamex_master_app/app/domain/models/preregistration.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_form_button_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_textformfield_widget.dart';
+import 'package:cetis4_master_app/app/data/services/remote/preregistrations.service.dart';
+import 'package:cetis4_master_app/app/domain/models/preregistration.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/my_custom_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_form_button_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_textformfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class PublicAddPreregistration extends StatefulWidget {

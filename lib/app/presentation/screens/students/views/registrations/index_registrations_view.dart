@@ -1,11 +1,11 @@
-import 'package:datamex_master_app/app/data/services/remote/registrations.service.dart';
-import 'package:datamex_master_app/app/domain/models/registration.dart';
-import 'package:datamex_master_app/app/presentation/global/dialogs/datamex_notification_dialog_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
-import 'package:datamex_master_app/app/presentation/routes/routes.dart';
-import 'package:datamex_master_app/app/presentation/screens/students/views/registrations/details_registration_view.dart';
+import 'package:cetis4_master_app/app/data/services/remote/registrations.service.dart';
+import 'package:cetis4_master_app/app/domain/models/registration.dart';
+import 'package:cetis4_master_app/app/presentation/global/dialogs/datamex_notification_dialog_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/my_custom_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_delete_confirmation.dart';
+import 'package:cetis4_master_app/app/presentation/routes/routes.dart';
+import 'package:cetis4_master_app/app/presentation/screens/students/views/registrations/details_registration_view.dart';
 import 'package:flutter/material.dart';
 
 class IndexRegistrations extends StatefulWidget {

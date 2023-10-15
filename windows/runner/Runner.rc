@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "com.example" "\0"
-            VALUE "FileDescription", "datamex_master_app" "\0"
+            VALUE "FileDescription", "cetis4_master_app" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "datamex_master_app" "\0"
+            VALUE "InternalName", "cetis4_master_app" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "datamex_master_app.exe" "\0"
-            VALUE "ProductName", "datamex_master_app" "\0"
+            VALUE "OriginalFilename", "cetis4_master_app.exe" "\0"
+            VALUE "ProductName", "cetis4_master_app" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

@@ -1,4 +1,4 @@
-import 'package:datamex_master_app/app/data/services/remote/preregistrations.service.dart';
+import 'package:cetis4_master_app/app/data/services/remote/preregistrations.service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 

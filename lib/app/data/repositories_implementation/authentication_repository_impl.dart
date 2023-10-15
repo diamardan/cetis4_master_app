@@ -1,8 +1,8 @@
-import 'package:datamex_master_app/app/data/services/remote/authentication.service.dart';
-import 'package:datamex_master_app/app/domain/either.dart';
-import 'package:datamex_master_app/app/domain/enums.dart';
-import 'package:datamex_master_app/app/domain/models/user.dart';
-import 'package:datamex_master_app/app/domain/repositories/authentication_repository.dart';
+import 'package:cetis4_master_app/app/data/services/remote/authentication.service.dart';
+import 'package:cetis4_master_app/app/domain/either.dart';
+import 'package:cetis4_master_app/app/domain/enums.dart';
+import 'package:cetis4_master_app/app/domain/models/user.dart';
+import 'package:cetis4_master_app/app/domain/repositories/authentication_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 const _key = 'sessionId';

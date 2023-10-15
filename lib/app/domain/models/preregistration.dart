@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:datamex_master_app/app/domain/models/careers.dart';
-import 'package:datamex_master_app/app/domain/models/grades.dart';
-import 'package:datamex_master_app/app/domain/models/groups.dart';
-import 'package:datamex_master_app/app/domain/models/turns.dart';
+import 'package:cetis4_master_app/app/domain/models/careers.dart';
+import 'package:cetis4_master_app/app/domain/models/grades.dart';
+import 'package:cetis4_master_app/app/domain/models/groups.dart';
+import 'package:cetis4_master_app/app/domain/models/turns.dart';
 
 class PreregistrationModel {
   PreregistrationModel({

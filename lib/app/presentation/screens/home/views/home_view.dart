@@ -1,7 +1,7 @@
-import 'package:datamex_master_app/app/presentation/global/painters/my_custom_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
-import 'package:datamex_master_app/app/presentation/global/widgets/menu_button_widget.dart';
-import 'package:datamex_master_app/app/presentation/routes/routes.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/my_custom_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/datamex_appbar_widget.dart';
+import 'package:cetis4_master_app/app/presentation/global/widgets/menu_button_widget.dart';
+import 'package:cetis4_master_app/app/presentation/routes/routes.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -68,8 +68,9 @@ class _HomeViewState extends State<HomeView> {
                 height: MediaQuery.of(context).size.width,
                 width: MediaQuery.of(context).size.width,
                 child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
+                    spacing:
+                        MediaQuery.of(context).size.width < 600 ? 8.0 : 20.0,
+                    runSpacing: 8.0,
                     runAlignment: WrapAlignment.start,
                     children: [
                       menuButton(
@@ -85,7 +86,14 @@ class _HomeViewState extends State<HomeView> {
                         'Alumnos',
                         Routes.students,
                         () {},
-                      )
+                      ),
+                      menuButton(
+                        context,
+                        'assets/notificaciones.png',
+                        'Notificaciones',
+                        Routes.notifications,
+                        () {},
+                      ),
                     ]),
               ),
             ),

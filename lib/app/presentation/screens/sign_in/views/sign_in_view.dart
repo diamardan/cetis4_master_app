@@ -1,9 +1,9 @@
-import 'package:datamex_master_app/app/data/constants/app_version.dart';
-import 'package:datamex_master_app/app/domain/enums.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/card_painter.dart';
-import 'package:datamex_master_app/app/presentation/global/painters/wave_clipper.dart';
-import 'package:datamex_master_app/app/presentation/routes/routes.dart';
-import 'package:datamex_master_app/main.dart';
+import 'package:cetis4_master_app/app/data/constants/app_version.dart';
+import 'package:cetis4_master_app/app/domain/enums.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/card_painter.dart';
+import 'package:cetis4_master_app/app/presentation/global/painters/wave_clipper.dart';
+import 'package:cetis4_master_app/app/presentation/routes/routes.dart';
+import 'package:cetis4_master_app/main.dart';
 import 'package:flutter/material.dart';
 
 class SignInView extends StatefulWidget {
